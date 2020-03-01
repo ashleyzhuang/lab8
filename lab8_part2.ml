@@ -158,7 +158,7 @@ module IntStringStack =  MakeStack
                           (struct
                             type t = int * string
                             let serialize (n, st) = "(" ^ (string_of_int n) ^
-                                                    ", '" ^ st ^ "')"
+                                                    ",'" ^ st ^ "')"
                           end) ;;
 
 
