@@ -93,7 +93,7 @@ will act as an absrtaction barrier to prevent the extra functions from
 leaking out of the module.)
 ......................................................................*)
 
-module MakeStack (Element: SERIALIZE)  :(STACK with type element = Element.t) =
+module MakeStack (Element: SERIALIZE) :(STACK with type element = Element.t) =
   struct
     exception Empty
 
@@ -121,9 +121,10 @@ module MakeStack (Element: SERIALIZE)  :(STACK with type element = Element.t) =
       List.fold_left f init s
 
     let serialize (s : stack) : string =
-      let open Element in
-      let el, s2 = pop_helper s in
-      (List.fold_right (fun x a -> a ^ (serialize x) ^ ":") s2 "") ^ (serialize el)
+      if s = [] then ""
+      else let open Element in
+           let el, s2 = pop_helper s in
+           (List.fold_right (fun x a -> a ^ (serialize x) ^ ":") s2 "") ^ (serialize el)
   end ;;
 
 (*......................................................................
